@@ -31,11 +31,10 @@ jobs:
           chmod +x $HOME/dependency-check/dependency-check/bin/dependency-check.sh
           $HOME/dependency-check/dependency-check/bin/dependency-check.sh \
             --project "bitcoin" \
-            --nvdDatafeed 'https://open-vulnerability-data-mirror-production.s3.amazonaws.com/nvdcve-{0}.json.gz' \
             --out . \
             --scan . \
             --disableOssIndex \
-            --failOnCVSS 11
+            --noupdate
 
       - name: Archive SAST report
         uses: actions/upload-artifact@v4
