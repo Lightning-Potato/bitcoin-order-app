@@ -21,7 +21,6 @@ jobs:
 
       - name: Run OWASP Dependency-Check
         uses: dependency-check/Dependency-Check_Action@main
-        id: Dependency-Check
         with:
           project: 'bitcoin'
           path: '.'
@@ -32,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: sast-report
-          path: ${{ steps.Dependency-Check.outputs.reports }}/dependency-check-report.html
+          path: ./dependency-check-report.html
