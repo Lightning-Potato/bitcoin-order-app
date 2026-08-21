@@ -1,5 +1,3 @@
-#!/bin/bash
-
 docker pull zaproxy/zap-stable
-docker run -i zaproxy/zap-stable zap-baseline.py -t "https://kenken64.github.io/bitcoin-order-app/" -l PASS > zap_baseline_report.html
+docker run -v $(pwd):/zap/wrk/:rw -i zaproxy/zap-stable zap-baseline.py -t "https://lightning-potato.github.io/bitcoin-order-app/" -r zap_baseline_report.html
 echo $? > /dev/null
