@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '16'
 
@@ -25,6 +25,8 @@ jobs:
           unzip -q dependency-check-13.0.0-release.zip -d $HOME/dependency-check
 
       - name: Run OWASP Dependency-Check
+        env:
+          JAVA_OPTS: "-Xmx4g"
         run: |
           chmod +x $HOME/dependency-check/dependency-check/bin/dependency-check.sh
           $HOME/dependency-check/dependency-check/bin/dependency-check.sh \
@@ -32,7 +34,8 @@ jobs:
             --nvdDatafeed 'https://open-vulnerability-data-mirror-production.s3.amazonaws.com/nvdcve-{0}.json.gz' \
             --out . \
             --scan . \
-            --disableOssIndex
+            --disableOssIndex \
+            --failOnCVSS 11
 
       - name: Archive SAST report
         uses: actions/upload-artifact@v4
